@@ -13,6 +13,7 @@ class woodcutter:
     carryCap=5
     warehouseTrips=0
     campTrips=0
+    doubleChance=0
 
     def store(self, resources):
        for key,value in resources.items():
@@ -23,8 +24,12 @@ class woodcutter:
         for key,value in self.chance.items():
             for p in value:
                 if(p > 1 - self.epsilon or random.random() < p):
-                    self.storage[key] = self.storage[key] + self.prod[key]
-                    self.storage["total"] = self.storage["total"] + self.prod[key]
+                    if(random.random() < self.doubleChance):
+                        self.storage[key] = self.storage[key] + 2 * self.prod[key]
+                        self.storage["total"] = self.storage["total"] + 2 * self.prod[key]
+                    else:
+                        self.storage[key] = self.storage[key] + self.prod[key]
+                        self.storage["total"] = self.storage["total"] + self.prod[key]
 
     def emptyCamp(self):
         for key,value in self.storage.items():
