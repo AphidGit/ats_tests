@@ -50,10 +50,11 @@ class woodcutter:
         while(self.warehouseTrips < 1000000):
             self.cut()
             if(self.isFull()):
-                self.emptyCamp()
-                self.cut()
-                self.emptyCamp()
-                self.cut()
+                for i in range(2):
+                    self.storage["total"] = self.storage["total"] - min(self.storage["wood"], self.carryCap)
+                    self.storage["wood"] = self.storage["wood"] - min(self.storage["wood"], self.carryCap)
+                    self.warehouseTrips = self.warehouseTrips + 1
+                    self.cut()
                 self.emptyCamp()
 
     def run2(self):
